@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-title>Processar Pagamento</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Método de Pagamento</mat-label>
+        <mat-select formControlName="billingType" required>
+          <mat-option *ngFor="let method of billingTypes" [value]="method.value">
+            {{ method.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CPF/CNPJ</mat-label>
+        <input matInput formControlName="cpfCnpj" placeholder="Digite o CPF/CNPJ" required/>
+        <mat-error *ngIf="paymentForm.get('cpfCnpj')?.invalid">CPF/CNPJ inválido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" formControlName="value" placeholder="Digite o valor" required/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" required>
+        <mat-label>Data de Vencimento</mat-label>
+        <input matInput type="date" formControlName="dueDate" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input matInput type="string" formControlName="description" />
+      </mat-form-field>
+
+      <mat-form-field *ngIf="this.paymentForm.get('billingType')?.value === 'CREDIT_CARD'" appearance="outline">
+        <mat-label>Número de parcelas</mat-label>
+        <input matInput type="number" formControlName="installmentCount" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid">
+        Enviar Pagamento
+      </button>
+    </form>
+
+    <mat-card *ngIf="errorMessage" class="error-card">
+      <mat-card-content>
+        <p class="error-text">{{ errorMessage }}</p>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-card-content>
+</mat-card>
