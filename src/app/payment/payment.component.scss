@@ -3,6 +3,11 @@
   place-items: center; 
   height: 100vh; 
   background-color: #f5f5f5; 
+  background-image: url('../assets/background.png');
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+
 }
 
 mat-card {
@@ -17,7 +22,7 @@ mat-card-title {
 
 mat-form-field {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 5px;
 }
 
 button {
