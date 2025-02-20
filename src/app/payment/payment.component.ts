@@ -61,16 +61,13 @@ export class PaymentComponent {
     this.http.post(apiUrl, this.paymentForm.value).subscribe(
       response => {
         const data = response as PaymentResponseDto;
-        console.log('Pagamento enviado com sucesso:', data);
-        
         window.open(data.invoiceUrl, '_blank');
         this.errorMessage = ''; 
+        this.paymentForm.reset();
       },
       error => {
         console.error('Erro ao processar pagamento:', error);
-        
         const errorMsg = error.error.errors?.[0]?.description || error.error?.message || error.message || 'Erro no processamento do pagamento';
-        
         this.errorMessage = errorMsg;
       }
     );
